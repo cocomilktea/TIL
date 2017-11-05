@@ -1,0 +1,14 @@
+body, body * { 
+	 margin: 0px; padding: 0px; 
+	 font-family: 'New Gulim', '새굴림', Gulim, Arial, sans-serif; 
+	 font-size: 12px; 
+	 line-height: 1.7; 
+} 
+
+#formArea * { margin-bottom: 20px; } 
+#formArea br { margin-bottom: 0px; } 
+#formArea input.text { margin-right: 10px; width: 30px; text-align: center; } 
+
+#tbodyArea td { padding: 2px 5px; text-align: center; } 
+
+#check_Correct { margin-top: 10px } 

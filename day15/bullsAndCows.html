@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href ="bullsAndCows.css">
+<title> 숫자 야구 게임 </title>
+
+</head>
+<body>
+	<div style="float: left;">
+	 <p>0 ~ 9 중에서 숫자를 입력한 후, "결과 보기" 버튼을 누르세요. </p>
+
+	 <!-- ──────────────── 입력 부분 ──────────────── --> 
+	 <form id="formArea">
+		 <input type="text" class="text" /><input type="text" class="text" />
+		 <input type="text" class="text" /><input type="text" class="text" />
+	 </form>
+
+	 <button onclick="bullsAndCows()"> 결과 보기 </button>
+	 <button onclick="reStarting(); deleteText()"> 새로 시작하기 </button>
+
+	 <p id="check_Correct"></p>
+</div>
+
+<table style="float: left;width: 250px" border="1">
+	 <thead><tr><th colspan="3"> SCORE </th></tr></thead>
+
+	 <!-- ──────────────── 출력 부분 ──────────────── --> 
+	 <tbody id="tbodyArea">
+		 <tr><td> 1회 </td><td style="width: 60px;">&nbsp;</td><td style="width: 125px;">&nbsp;</td></tr>
+		 <tr><td> 2회 </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		 <tr><td> 3회 </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		 <tr><td> 4회 </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		 <tr><td> 5회 </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		 <tr><td> 6회 </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		 <tr><td> 7회 </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		 <tr><td> 8회 </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		 <tr><td> 9회 </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+	 </tbody>
+
+</table>
+
+<p style="clear: both"><p>
+<script src="bullsAndCows.js" charset="UTF-8"></script>
+</body>
+</html>
