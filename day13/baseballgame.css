@@ -6,7 +6,7 @@ body{background: url("img/bg2.jpg");background-size: 1300px 900px; background-re
 #header{width: 400px; height: 170px; margin: 0 auto;}
 #header>ol{*zoom:1; width: 300px; height: 60px; margin: 10px auto; padding-left: 110px;}
 #header>ol:after{display: block;clear: :both; content: '';}
-#header>ol>li>input{float: left; width: 40px; height: 40px; margin-right: 20px; text-align: center;}
+#header>ol>li>p{float: left; width: 40px; height: 40px; margin-right: 20px; text-align: center; line-height: 40px; background-color: #fff}
 #delBtn{width: 35px; height: 35px; margin-top: 5px; border: none; background: url("img/btnback.png");background-size: 35px 35px; background-repeat: no-repeat; background-position: center;}
 #output{height: 100px;text-align: center; font-size: 30px; color: #fff; line-height: 100px; background: url("img/view.jpg"); background-size: 400px 100px; background-repeat: no-repeat; background-position: center;}
 
