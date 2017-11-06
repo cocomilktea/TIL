@@ -4,6 +4,7 @@ var resultArr = [];
 var innings = 0;
 var strike = 0;
 var ball = 0;
+var count = 0;
 
 /*
 //1. 중복없이 랜덤수 배열에 담기
@@ -27,7 +28,6 @@ for(var i = 0; i < 3; i++){
 console.log(resultArr);
 
 
-
 //입력받은 값을 닫을 배열
 var inputArr = [];
 
@@ -45,19 +45,27 @@ function displayText() {
 //버튼을 클릭했을때
 function myBtnClick(num) {
 
+	count++;
+
+	if(count > 3){
+		//btn 사중중지 기능 넣어도됨
+		alert("숫자는 3개까지 입력가능");
+	}
 	//document.getElementById("output").innerHTML = num;
-	
+
 	inputArr.push(num);
 	document.getElementById("first").innerHTML = inputArr[0];
 	document.getElementById("second").innerHTML = inputArr[1];
 	document.getElementById("third").innerHTML = inputArr[2];
 
+
+
+
 }
 
-
+console.log(inputArr);
 
 function startBtnClick(){
-
 
 	console.log(inputArr);
 
@@ -65,9 +73,16 @@ function startBtnClick(){
 	console.log("strike",strike);
 	console.log("ball",ball);
 
-
 	gameEnd();
 
+}
+
+function delBtnClick(){
+	for(var i = 2; i > 0; i--){
+		document.getElementById("third").innerHTML = 0;
+		document.getElementById("second").innerHTML = 0;
+		document.getElementById("first").innerHTML = 0;
+	}
 }
 
 
