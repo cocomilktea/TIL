@@ -13,8 +13,66 @@
 //다 정리했으면 성공! 메시지 출력
 
 var puzzle = document.getElementById('puzzle');
+//var key = document.getElementById("n33").innerHTML;
 
-//var arr = [];
+var arr = [];
+
+function generatePuzzle(arr){
+	for(var i = 0; i < 4; i++){
+		arr[i] = [];
+		for(var j = 0; j < 4; j++){
+			arr[i][j] = document.getElementById("n"+i+j).innerHTML;
+		}
+	}
+}
+
+
+function printArr(arr){
+	for(var i = 0; i < 4; i++){
+		var str = "";
+		for(var j = 0; j < 4; j++){
+				str += arr[i][j] + " ";
+		}
+		console.log(str);
+	}
+}
+generatePuzzle(arr);
+printArr(arr);
+
+
+function findNeighbor(arr, n){
+	var x = -1; y = -1;
+	for(var i = 0; i < 4; i++){
+		var k = arr[i].indexOf(n);
+		if(k !== -1){
+			console.log("찾았")
+			x = i;
+			y = k;
+			break;
+		}
+	}
+
+	if(x !== -1){
+		if(x > 0){
+			console.log("up" + arr[x - 1][y]);
+		}
+		if(y > 0){
+			console.log("left" + arr[x][y - 1]);
+		}
+		if(x < 3){
+			console.log("down" + arr[x + 1][y]);
+		}
+		if(y < 3){
+			console.log("right" + arr[x][y + 1]);
+		}
+		return;
+	}
+	console.log("못찾음");
+}
+findNeighbor(arr, "n");
+
+
+
 function numClick(event){
 	//arr.push(event.target);
 	console.log(event.target);
@@ -24,10 +82,6 @@ function numClick(event){
 		console.log("outside");
 		return;
 	}
-
-	// if(event.value == "x"){
-	// 	console.log("엑스");
-	// }
 }
 
 
