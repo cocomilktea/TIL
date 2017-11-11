@@ -13,9 +13,13 @@
 //다 정리했으면 성공! 메시지 출력
 
 var puzzle = document.getElementById('puzzle');
-//var key = document.getElementById("n33").innerHTML;
+var key = document.getElementById("n33").innerHTML;
 
 var arr = [];
+var up;
+var down;
+var left;
+var right;
 
 function generatePuzzle(arr){
 	for(var i = 0; i < 4; i++){
@@ -40,10 +44,11 @@ generatePuzzle(arr);
 printArr(arr);
 
 
+
 function findNeighbor(arr, n){
 	var x = -1; y = -1;
 	for(var i = 0; i < 4; i++){
-		var k = arr[i].indexOf(n);
+		var k = key;
 		if(k !== -1){
 			console.log("찾았")
 			x = i;
@@ -54,34 +59,49 @@ function findNeighbor(arr, n){
 
 	if(x !== -1){
 		if(x > 0){
-			console.log("up" + arr[x - 1][y]);
+			up = arr[x - 1][y];
+			//console.log("up" + arr[x - 1][y]);
 		}
 		if(y > 0){
-			console.log("left" + arr[x][y - 1]);
+			left = arr[x][y - 1];
+			//console.log("left" + arr[x][y - 1]);
 		}
 		if(x < 3){
-			console.log("down" + arr[x + 1][y]);
+			down = arr[x + 1][y];
+			//console.log("down" + arr[x + 1][y]);
 		}
 		if(y < 3){
-			console.log("right" + arr[x][y + 1]);
+			right = arr[x][y + 1];
+			//console.log("right" + arr[x][y + 1]);
 		}
 		return;
 	}
 	console.log("못찾음");
 }
-findNeighbor(arr, "n");
+findNeighbor(arr, key);
 
+
+function puzzleSwap(arr, n, k){
+	var temp = n;
+	n = k;
+	k = temp; 
+}
+puzzleSwap(arr, 0, 0, 3, 3);
+printArr(arr);
 
 
 function numClick(event){
-	//arr.push(event.target);
-	console.log(event.target);
-	//console.log(arr);
+	
+	var num = event.target.innerHTML;
+	num.innerHTML = key; //왜 안바뀌지 ㅜㅜ
+
+	//puzzleSwap(arr, num, key);
+	console.log(num);
+		
 
 	if(!event.target.id){
 		console.log("outside");
 		return;
 	}
 }
-
 
