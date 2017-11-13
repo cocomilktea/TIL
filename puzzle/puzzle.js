@@ -13,23 +13,34 @@
 //다 정리했으면 성공! 메시지 출력
 
 var puzzle = document.getElementById('puzzle');
-var key = document.getElementById("n33").innerHTML;
 
 var arr = [];
-var up;
-var down;
-var left;
-var right;
 
 function generatePuzzle(arr){
+	var num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "#"];
+
 	for(var i = 0; i < 4; i++){
 		arr[i] = [];
 		for(var j = 0; j < 4; j++){
-			arr[i][j] = document.getElementById("n"+i+j).innerHTML;
+			var r = Math.floor(Math.random() * num.length -1);
+			arr[i][j] = num.splice(r, 1);
 		}
 	}
 }
 
+
+/*
+function generatePuzzle(arr){
+
+	for(var i = 0; i < 4; i++){
+		arr[i] = [];
+		for(var j = 0; j < 4; j++){
+			arr[i][j] = i * 4 + j + 1;
+		}
+	}
+	arr[3][3] = "#";
+}
+*/
 
 function printArr(arr){
 	for(var i = 0; i < 4; i++){
@@ -40,68 +51,89 @@ function printArr(arr){
 		console.log(str);
 	}
 }
+
+function updateHTML(arr) {
+	for (var i = 0; i < 4; i++ ) {
+		for (var j = 0; j <4; j++) {
+			document.getElementById("n"+i+j).innerHTML = arr[i][j];
+		}
+	}
+}
+
+
 generatePuzzle(arr);
 printArr(arr);
+updateHTML(arr);
 
 
 
-function findNeighbor(arr, n){
+
+function arraySwap(arr, x1, y1, x2, y2) {
+	var temp = arr[x1][y1];
+	arr[x1][y1] = arr[x2][y2];
+	arr[x2][y2] = temp;
+}
+
+
+
+//pos: 클릭한 자리의 숫자값 
+function puzzleChange(arr, pos){
 	var x = -1; y = -1;
 	for(var i = 0; i < 4; i++){
-		var k = key;
+		var k = arr[i].indexOf("#");
 		if(k !== -1){
-			console.log("찾았")
+			console.log("# 찾았다!");
 			x = i;
 			y = k;
 			break;
 		}
 	}
 
+	var up, down, left, right;
+	up = down = left = right = -1;
+	//찾았다! 
 	if(x !== -1){
 		if(x > 0){
 			up = arr[x - 1][y];
-			//console.log("up" + arr[x - 1][y]);
 		}
 		if(y > 0){
 			left = arr[x][y - 1];
-			//console.log("left" + arr[x][y - 1]);
 		}
 		if(x < 3){
 			down = arr[x + 1][y];
-			//console.log("down" + arr[x + 1][y]);
 		}
 		if(y < 3){
 			right = arr[x][y + 1];
-			//console.log("right" + arr[x][y + 1]);
 		}
-		return;
 	}
-	console.log("못찾음");
+
+	console.log(up, down, left, right);
+
+	if(pos == up){
+		arraySwap(arr, x, y, x - 1, y);
+	} else if (pos == down) {
+		arraySwap(arr, x, y, x + 1, y);
+	} else if (pos == left) {
+		arraySwap(arr, x, y, x , y - 1);
+	} else if (pos == right) {
+		arraySwap(arr, x, y, x, y + 1);
+	} else {
+		console.log("못 바꿔");
+	}	
+
+
+
+
 }
-findNeighbor(arr, key);
-
-
-function puzzleSwap(arr, n, k){
-	var temp = n;
-	n = k;
-	k = temp; 
-}
-puzzleSwap(arr, 0, 0, 3, 3);
-printArr(arr);
-
 
 function numClick(event){
 	
-	var num = event.target.innerHTML;
-	num.innerHTML = key; //왜 안바뀌지 ㅜㅜ
-
-	//puzzleSwap(arr, num, key);
-	console.log(num);
-		
-
-	if(!event.target.id){
-		console.log("outside");
-		return;
-	}
+	var v = event.target.innerHTML;
+	puzzleChange(arr, v);
+	updateHTML(arr);
 }
+
+
+
+
 
