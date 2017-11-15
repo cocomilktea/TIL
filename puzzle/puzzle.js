@@ -184,6 +184,7 @@ function numClick(event){
 function reStart(){
 	shuffle(arr);
 	updateHTML(arr);
+	document.getElementById("title").innerHTML = "Number Puzzles";
 }
 
 
@@ -205,7 +206,6 @@ function checkResult(arr){
 	}	
 	var end = document.getElementById("title");
 	end.innerHTML = "END";
-	end.style.color = ""
 	//console.log("같음");
 	return true;
 }
