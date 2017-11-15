@@ -1,38 +1,18 @@
-
 var puzzle = document.getElementById('puzzle');
 var up, down, left, right;
 var arr = [];
-var basicArr = [];
 
-
-function basicPuzzle(basicArr){
-	for(var i = 0; i < 4; i++){
-		basicArr[i] = [];
-		for(var j = 0; j < 4; j++){
-			basicArr[i][j] = i * 4 + j + 1;
-		}
-	}
-	basicArr[3][3] = "#";
-}
-basicPuzzle(basicArr);
-console.log(basicArr);
-
-
-
-
-//1~15숫자와 #을 랜덤으로 퍼즐을 만들어준다
-//arr :  퍼즐 배열
+//배열 퍼즐 만들기
+//arr : 퍼즐배열
 //return : 없음
 function generatePuzzle(arr){
-	var num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "#"];
-
 	for(var i = 0; i < 4; i++){
 		arr[i] = [];
 		for(var j = 0; j < 4; j++){
-			var r = Math.floor(Math.random() * num.length -1);
-			arr[i][j] = num.splice(r, 1);
+			arr[i][j] = i * 4 + j + 1;
 		}
 	}
+	arr[3][3] = "#";
 }
 
 
@@ -56,9 +36,8 @@ function updateHTML(arr) {
 }
 
 generatePuzzle(arr);
+shuffle(arr);
 updateHTML(arr);
-
-
 
 
 //#의 위치를 찾는다
@@ -75,7 +54,6 @@ function findPosition(arr, num){
 			}
 		}
 	}
-
 	if(pos.x !== -1){
 		return pos;
 	} else {
@@ -83,16 +61,13 @@ function findPosition(arr, num){
 	}
 }
 
-console.log(findPosition(arr, '#'));
-
 
 //'#' 상하좌우 위치에 있는 값 찾기
 //arr : 퍼즐배열
-//return : 없음
+//return : 위치값
 function findNeighbor(arr){
 	var key = findPosition(arr, '#');
 
-	
 	up = down = left = right = -1; //좌표중에 -1은 없는값
 	if(key.x !== -1){
 		if(key.x > 0){
@@ -108,12 +83,8 @@ function findNeighbor(arr){
 			right = arr[key.x][key.y + 1];
 		}
 	}
-	console.log(up, down, left, right);
 	return up, down, left, right;
-	
-
 }
-
 findNeighbor(arr);
 
 
@@ -148,36 +119,97 @@ function puzzleChange(arr, pos){
 
 }
 
-//스왑할 번호선택
-function numClick(event){
-	var v = event.target.innerHTML;
-	puzzleChange(arr, v);
-	updateHTML(arr);
-}
+//퍼즐 섞기
+//arr : 퍼즐배열
+//return : 없음
+function shuffle(arr){
 
-function reStart(){
-	generatePuzzle(arr);
-	updateHTML(arr);
-}
+	var count = 0;
 
-
-function checkResult(){
-	for(var i = 0; i < 4; i++){
-		for(var j = 0; j < 4; j++){
-			if(basicArr[i][j] === arr[i][j]){
-				//alert("게임끝");
-
-				console.log("게임끝");
-
+	while(count < 500){
+		count++;
+		var key = findPosition(arr, '#');		
+		findNeighbor(arr);
+		var n = Math.floor(Math.random()*4);
+		switch(n){
+		case 0:
+			if(up != -1){
+				findNeighbor(arr);
+				arraySwap(arr, key.x, key.y, key.x - 1, key.y);
+				updateHTML(arr);
+			}			
+			break;
+		case 1:
+			if(down != -1){
+				findNeighbor(arr);
+				arraySwap(arr, key.x, key.y, key.x + 1, key.y);
+				updateHTML(arr);
+			}			
+			break;
+		case 2:
+			if(left != -1){
+				findNeighbor(arr);
+				arraySwap(arr, key.x, key.y, key.x , key.y - 1);
+				updateHTML(arr);
 			}
+			break;
+		case 3:
+			if(right != -1){
+				findNeighbor(arr);
+				arraySwap(arr, key.x, key.y, key.x, key.y + 1);
+				updateHTML(arr);				
+			}
+			break;
 		}
 	}
-
 }
-checkResult();
+shuffle(arr);
+
+//스왑할 번호선택
+function numClick(event){
+	var r = checkResult(arr);
+	console.log(r);
+	if(r){
+		return;
+	}else{
+		var v = event.target.innerHTML;
+		puzzleChange(arr, v);
+		updateHTML(arr);
+		checkResult(arr);
+	}
+}
 
 
-document.getElementById("puzzle").disabled = true;
+//reset 다시 퍼즐 셔플
+function reStart(){
+	shuffle(arr);
+	updateHTML(arr);
+}
+
+
+//결과체크
+//arr : 퍼즐배열
+//return : 다르면 false, 기본퍼즐과 모두같으면 true
+function checkResult(arr){
+		
+	for(var i = 0; i < 4; i++){
+		for(var j = 0; j < 4; j++){
+			if (i ===3 && j ===3) {
+				break;
+			}
+			if(arr[i][j] != i * 4 + j + 1){
+				//console.log("같지않음");
+				return false;
+			}
+		}
+	}	
+	var end = document.getElementById("title");
+	end.innerHTML = "END";
+	end.style.color = ""
+	//console.log("같음");
+	return true;
+}
+
 
 
 
