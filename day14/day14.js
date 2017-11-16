@@ -38,7 +38,7 @@ var countdown2 = function(n){
 countdown2(10);
 
 
-*/
+
 
 // var rsum = function(a, b){
 // 	var result = 0;
@@ -81,5 +81,12 @@ console.log("%s = %d", str, y);
 
 
 //피보나치 수열
+
+
+*/
+
+
+
+
 
 
