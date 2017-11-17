@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+.droptarget {
+    float: left; 
+    width: 100px; 
+    height: 35px;
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+</style>
+</head>
+<body>
+
+<p>Drag the p element back and forth between the two rectangles:</p>
+
+<div class="droptarget">
+  <p draggable="true" id="dragtarget1">Drag me!</p>
+</div>
+
+<div class="droptarget">
+    <p draggable="true" id="dragtarget2">change!</p>
+</div>
+
+<p style="clear:both;"><strong>Note:</strong> drag events are not supported in Internet Explorer 8 and earlier versions or Safari 5.1 and earlier versions.</p>
+
+<p id="demo"></p>
+
+<script>
+/* Events fired on the drag target */
+
+document.addEventListener("dragstart", function(event) {
+    // The dataTransfer.setData() method sets the data type and the value of the dragged data
+    //dataTransfer.setData () 메서드는 데이터 유형과 드래그 된 데이터의 값을 설정합니다.
+    event.dataTransfer.setData("Text", event.target.id);
+    
+    // Output some text when starting to drag the p element
+    //p 엘리먼트를 드래그하기 시작하면 텍스트를 출력한다.
+    document.getElementById("demo").innerHTML = "Started to drag the p element.";
+    
+    // Change the opacity of the draggable element
+    //드래그 할 수있는 요소의 불투명도 변경
+    event.target.style.opacity = "0.4";
+});
+
+// While dragging the p element, change the color of the output text
+//p 요소를 드래그하는 동안 출력 텍스트의 색상을 변경합니다.
+document.addEventListener("drag", function(event) {
+    document.getElementById("demo").style.color = "red";
+});
+
+// Output some text when finished dragging the p element and reset the opacity
+//p 요소 드래그가 완료되면 텍스트를 출력하고 불투명도 재설정
+document.addEventListener("dragend", function(event) {
+    document.getElementById("demo").innerHTML = "Finished dragging the p element.";
+    event.target.style.opacity = "1";
+});
+
+
+/* Events fired on the drop target */
+
+// When the draggable p element enters the droptarget, change the DIVS's border style
+//드래그 가능한 p 요소가 droptarget에 들어 오면 DIVS의 테두리 스타일을 변경합니다
+document.addEventListener("dragenter", function(event) {
+    if ( event.target.className == "droptarget" ) {
+        event.target.style.border = "3px dotted red";
+    }
+});
+
+// By default, data/elements cannot be dropped in other elements. To allow a drop, we must prevent the default handling of the element
+//기본적으로 데이터 / 요소는 다른 요소에 놓을 수 없습니다. 드롭을 허용하려면 요소의 기본 처리를 방지해야합니다.
+document.addEventListener("dragover", function(event) {
+    event.preventDefault();
+});
+
+// When the draggable p element leaves the droptarget, reset the DIVS's border style
+//draggable p 요소가 droptarget을 떠날 때 DIVS의 테두리 스타일을 재설정합니다.
+document.addEventListener("dragleave", function(event) {
+    if ( event.target.className == "droptarget" ) {
+        event.target.style.border = "";
+    }
+});
+
+/* On drop - Prevent the browser default handling of the data (default is open as link on drop)
+   Reset the color of the output text and DIV's border color
+   Get the dragged data with the dataTransfer.getData() method
+   The dragged data is the id of the dragged element ("drag1")
+   Append the dragged element into the drop element
+
+    On drop - 데이터의 브라우저 기본 처리 방지 (기본값은 드롭 다운 링크로 열림) 
+    출력 텍스트의 색상 및 DIV 테두리 색상 재설정 
+    dataTransfer.getData () 메소드로 드래그 된 데이터 얻기 
+    드래그 된 데이터는 다음과 같습니다. 드래그 된 요소의 id ( 'drag1') 
+    드래그 된 요소를 drop 요소에 추가합니다.
+
+*/
+document.addEventListener("drop", function(event) {
+    event.preventDefault();
+    if ( event.target.className == "droptarget" ) {
+        document.getElementById("demo").style.color = "";
+        event.target.style.border = "";
+        var data = event.dataTransfer.getData("Text");
+        event.target.appendChild(document.getElementById(data));
+
+    }
+});
+</script>
+
+<!--
+<script src="day25.js" charset="UTF-8"></script> 
+-->
+</body>
+</html>
