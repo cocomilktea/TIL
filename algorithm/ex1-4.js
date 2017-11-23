@@ -1,4 +1,4 @@
-
+	
 //Plus Minus
 var input = require('fs').readFileSync('/dev/stdin').toString().split('\n');
 var n = Number(input[0]);
